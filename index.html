@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<title>Pyscript</title>
+
+		<link rel="stylesheet" href="styles/base.css">
+		<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+		<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+	</head>
+	<body>
+
+		<div class="container">
+			<div class="box">
+				<form onsubmit="return false">
+					<div class="input-group">
+						<label for="input1">Ingrese el capital invertido :</label>
+						<input type="text" id="input1" name="input1" placeholder="Inversion">
+					</div>
+					<div class="input-group">
+						<label for="input2">Ingrese la T.E.A :</label>
+						<input type="text" id="input2" name="input2" placeholder="Tasa anual">
+					</div>
+					<div class="input-group">
+						<label for="input3">Ingrese la cantidad de dias :</label>
+						<input type="text" id="input3" name="input3" placeholder="Dias">
+					</div>
+
+					<div id="resultado"></div>
+
+					<button py-click="compuesto()" id="resultado" class="btn">Confirmar</button>
+					
+				</form>
+			</div>
+		</div>
+
+		<py-script>
+			from pyscript import Element
+			import js
+		
+			def compuesto():
+			
+				inversion = float(Element("input1").element.value)
+				tasa = float(Element("input2").element.value) / 100
+				dias = int(Element("input3").element.value)
+
+				tiempo = dias / 365
+				monto = inversion * (1 + tasa)**tiempo
+				diario = (monto - inversion) / dias
+
+				display(f"El monto final que recibirias en {dias} dias, es de ${round(monto,2)}, el cual genera un aproximado de ${round(diario,2)} por dia", target="resultado") 
+		</py-script>
+
+	</body>
+</html>
